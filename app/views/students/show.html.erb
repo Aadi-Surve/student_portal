@@ -1,0 +1,45 @@
+<h1>Student Details</h1>
+
+<div class="card">
+  <div class="card-body">
+
+    <!-- ✅ Show student image if uploaded -->
+    <% if @student.image.attached? %>
+      <div class="mb-3 text-center">
+        <%= image_tag @student.image, class: "img-thumbnail", style: "max-width: 200px; max-height: 200px; object-fit: cover;" %>
+      </div>
+    <% end %>
+
+    <h5 class="card-title"><%= @student.name %></h5>
+    <p class="card-text">
+      <strong>Email:</strong> <%= @student.email %><br>
+      <strong>Date of Birth:</strong> <%= @student.date_of_birth %><br>
+      <strong>Address:</strong> <%= @student.address %><br>
+      <strong>Phone:</strong> <%= @student.phone %><br>
+      <strong>Enrollment Date:</strong> <%= @student.enrollment_date %>
+    </p>
+  </div>
+</div>
+
+<h2 class="mt-4">Grades</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Course</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @student.grades.includes(:course).each do |grade| %>
+      <tr>
+        <td><%= grade.course.name %></td>
+        <td><%= grade.value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="mt-3">
+  <%= link_to 'Edit', edit_student_path(@student), class: 'btn btn-warning' %>
+  <%= link_to 'Back', students_path, class: 'btn btn-secondary' %>
+</div>

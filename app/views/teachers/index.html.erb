@@ -1,0 +1,49 @@
+<h1>Teachers</h1>
+
+<div class="row mb-4">
+  <div class="col-md-8">
+    <%= form_tag teachers_path, method: :get, class: 'form-inline' do %>
+      <div class="input-group mr-2">
+        <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search by name, email, or phone...' %>
+      </div>
+      <div class="input-group mr-2">
+        <%= select_tag :subject,
+          options_for_select(@subjects, params[:subject]),
+          prompt: 'Filter by Subject',
+          class: 'form-control' %>
+      </div>
+      <%= submit_tag 'Search', class: 'btn btn-primary' %>
+      <%= link_to 'Clear', teachers_path, class: 'btn btn-secondary ml-2' %>
+    <% end %>
+  </div>
+  <div class="col-md-4 text-right">
+    <%= link_to 'New Teacher', new_teacher_path, class: 'btn btn-success' %>
+  </div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Subject</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @teachers.each do |teacher| %>
+			<tr>
+				<td><%= teacher.name %></td>
+				<td><%= teacher.email %></td>
+				<td><%= teacher.phone %></td>
+				<td><%= teacher.subject %></td>
+				<td>
+					<%= link_to 'View', teacher_path(teacher), class: 'btn btn-info btn-sm' %>
+					<%= link_to 'Edit', edit_teacher_path(teacher), class: 'btn btn-warning btn-sm' %>
+					<%= link_to 'Delete', teacher_path(teacher), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

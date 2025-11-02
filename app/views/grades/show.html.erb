@@ -1,0 +1,16 @@
+<h1>Grade Details</h1>
+
+<div class="card">
+	<div class="card-body">
+		<p class="card-text">
+			<strong>Student:</strong> <%= link_to @grade.student.name, student_path(@grade.student) %><br>
+			<strong>Course:</strong> <%= link_to @grade.course.name, course_path(@grade.course) %><br>
+			<strong>Grade:</strong> <%= @grade.value %>
+		</p>
+	</div>
+</div>
+
+<div class="mt-3">
+	<%= link_to 'Edit', edit_grade_path(@grade), class: 'btn btn-warning' %>
+	<%= link_to 'Back', grades_path, class: 'btn btn-secondary' %>
+</div>
